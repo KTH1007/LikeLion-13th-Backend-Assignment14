@@ -18,7 +18,7 @@ public class WeatherController {
     private final WeatherService weatherService;
 
     @GetMapping("/raw")
-    public ResponseEntity<String> getWeatherRaw(
+    public ResponseEntity<ApiResponse<String>> getWeatherRaw(
             @RequestParam(defaultValue = "1") int page,
             @RequestParam(defaultValue = "10") int size,
             @RequestParam String currentDate,
@@ -28,7 +28,7 @@ public class WeatherController {
 
         String response = weatherService.getWeatherForecastRaw(
                 page, size, currentDate, hour, courseId, dataType);
-        return ResponseEntity.ok(response);
+        return ResponseEntity.ok(ApiResponse.onSuccess(response));
     }
 
     @GetMapping("/from-api")
